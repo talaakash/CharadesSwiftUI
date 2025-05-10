@@ -41,3 +41,7 @@ class FontStyle {
     static let extraBold = "LeagueSpartan-ExtraBold"
     static let black = "LeagueSpartan-Black"
 }
+
+class ScreenDetails {
+    static var bottomSafeArea: CGFloat = 0.0
+}

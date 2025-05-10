@@ -7,48 +7,18 @@
 
 import SwiftUI
 
-private enum Settings: CaseIterable {
-    case control, howToPlay, rateUs, contactUs, shareApp
-    
-    var name: String {
-        switch self {
-        case .control:
-            return "gyroControl".localize()
-        case .howToPlay:
-            return "howToPlaySetting".localize()
-        case .rateUs:
-            return "rateUsSetting".localize()
-        case .contactUs:
-            return "contactUsSetting".localize()
-        case .shareApp:
-            return "shareAppSetting".localize()
-        }
-    }
-    
-    var iconName: UIImage {
-        switch self {
-        case .control:
-            return UIImage.howToPlay
-        case .howToPlay:
-            return UIImage.howToPlay
-        case .rateUs:
-            return UIImage.rate
-        case .contactUs:
-            return UIImage.contactUs
-        case .shareApp:
-            return UIImage.share
-        }
-    }
-}
-
 struct SettingScreen: View {
-    @Environment(\.presentationMode) var presentationMode
     
-    private let settingOptions = Settings.allCases
+    @StateObject private var viewModel = SettingScreenVM()
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
             ZStack {
+                NavigationLink(destination: HowToPlayScreen(), isActive: $viewModel.howToPlay) {
+                    EmptyView()
+                }
+                
                 Image(uiImage: UIImage.bgImg)
                     .resizable()
                     .ignoresSafeArea()
@@ -74,22 +44,26 @@ struct SettingScreen: View {
                     }
                     
                     // Body
-                    List(settingOptions, id: \.self) { option in
+                    List(viewModel.settingOptions, id: \.self) { option in
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.gray.opacity(0.2))
                             HStack {
-                                Image(uiImage: option.iconName)
+                                Image(uiImage: option.icon)
                                     .resizable()
                                     .frame(width: 24, height: 24)
                                     .padding(.all, 8)
                                 
-                                Text(option.name)
+                                Text(option.name) 
                                     .foregroundStyle(Color.white)
                                     .font(.custom(FontStyle.medium, size: 20))
-                                
+                                 
                                 Spacer()
                             }
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            self.viewModel.selected(option: option)
                         }
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets())
@@ -99,6 +73,9 @@ struct SettingScreen: View {
                     .listRowSpacing(16)
                     .listStyle(.plain)
                 }
+            }
+            NavigationLink(destination: HowToPlayScreen(), isActive: $viewModel.howToPlay) {
+                EmptyView()
             }
         }
         .navigationBarHidden(true)

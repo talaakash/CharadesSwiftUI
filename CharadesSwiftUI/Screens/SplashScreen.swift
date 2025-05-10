@@ -27,6 +27,14 @@ struct SplashScreen: View {
                     .padding(.bottom, 8)
             }
         }
+        .background {
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear {
+                        ScreenDetails.bottomSafeArea = geometry.safeAreaInsets.bottom
+                    }
+            }
+        }
     }
 }
 

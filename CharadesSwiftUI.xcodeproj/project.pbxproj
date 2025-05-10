@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4640AB402DC61B9C00C9B0A7 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 4640AB3F2DC61B9C00C9B0A7 /* FirebaseRemoteConfig */; };
+		84310A742DCDC8B000279439 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 84310A732DCDC8B000279439 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84310A742DCDC8B000279439 /* Kingfisher in Frameworks */,
 				4640AB402DC61B9C00C9B0A7 /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +86,7 @@
 			name = CharadesSwiftUI;
 			packageProductDependencies = (
 				4640AB3F2DC61B9C00C9B0A7 /* FirebaseRemoteConfig */,
+				84310A732DCDC8B000279439 /* Kingfisher */,
 			);
 			productName = CharadesSwiftUI;
 			productReference = 4640AAFD2DC6110100C9B0A7 /* CharadesSwiftUI.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4640AB3E2DC61B9C00C9B0A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				84310A722DCDC8B000279439 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4640AAFE2DC6110100C9B0A7 /* Products */;
@@ -366,6 +370,14 @@
 				minimumVersion = 11.12.0;
 			};
 		};
+		84310A722DCDC8B000279439 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -373,6 +385,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4640AB3E2DC61B9C00C9B0A7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseRemoteConfig;
+		};
+		84310A732DCDC8B000279439 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84310A722DCDC8B000279439 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

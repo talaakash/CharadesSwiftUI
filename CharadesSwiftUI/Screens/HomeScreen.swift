@@ -31,7 +31,8 @@ struct HomeScreen: View {
                         })
                     }
                     
-                    Spacer()
+                    DeckView()
+                        .ignoresSafeArea(.container, edges: .bottom)
                 }
             }
         }

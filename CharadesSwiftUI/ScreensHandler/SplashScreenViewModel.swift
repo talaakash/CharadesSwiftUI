@@ -41,6 +41,10 @@ class SplashScreenViewModel: ObservableObject {
             }
         }
     }
+    
+    func setSafeArea(_ area: CGFloat) {
+        
+    }
 }
 
 // MARK: Private Methods
@@ -92,6 +96,7 @@ extension SplashScreenViewModel {
                         if currentDataVersion != dataVersion {
                             self.loadAllData(from: appData)
                         } else {
+                            FirebaseRemoteConfigManager.shared.allDecks = StorageManager.shared.getJson(inType: [Deck].self, typeOfJson: .allDecks)
                             self.versionCheckDone = true
                         }
                     } else {

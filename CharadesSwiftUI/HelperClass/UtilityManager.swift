@@ -15,31 +15,32 @@ class UtilityManager: NSObject {
     private override init() { }
     
     
-    func shareApp(from viewController: UIViewController) {
+    func shareApp() {
         let appShareMessage = [String(format: "appShareMessage".localize(), AppConstants.appName.localize(), AppConstants.appName.localize(), AppConstants.appUrl)]
         let activityVC = UIActivityViewController(activityItems: appShareMessage, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.addToReadingList]
-        viewController.present(activityVC, animated: true, completion: nil)
+        if let topController = UIApplication.shared.topMostViewController() {
+            topController.present(activityVC, animated: true)
+        }
     }
     
-    func sendContactUsEmail(from viewController: UIViewController)
-    {
+    func sendContactUsEmail() {
+        guard let topController = UIApplication.shared.topMostViewController() else { return }
         guard MFMailComposeViewController.canSendMail() else {
             let alertController = UIAlertController(title: "appName".localize(), message: "mailOpenFail".localize(), preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "buttonTitleOkay".localize(), style: .default, handler: nil)
             alertController.addAction(okAction)
-            viewController.present(alertController, animated: true, completion: nil)
+            topController.present(alertController, animated: true, completion: nil)
             return
         }
         let mailComposeViewController = configuredMailComposeViewController()
-        viewController.present(mailComposeViewController, animated: true, completion: nil)
+        topController.present(mailComposeViewController, animated: true)
     }
     
     func getLocaleCountryCode() -> String? {
         let preferredLanguage = Locale.preferredLanguages.first?.split(separator: "-").first?.lowercased() ?? "en"
         return preferredLanguage
-//        return Locale.current.identifier.split(separator: "-").first?.lowercased()
     }
     
     func findValueInJson<T>(type: T.Type, key: String, json: [String: Any]) -> T? {
@@ -95,5 +96,27 @@ extension UtilityManager: MFMailComposeViewControllerDelegate {
             break
         }
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension UIApplication {
+    func topMostViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+        .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+        .first?.rootViewController) -> UIViewController? {
+
+        if let nav = base as? UINavigationController {
+            return topMostViewController(base: nav.visibleViewController)
+        }
+
+        if let tab = base as? UITabBarController,
+           let selected = tab.selectedViewController {
+            return topMostViewController(base: selected)
+        }
+
+        if let presented = base?.presentedViewController {
+            return topMostViewController(base: presented)
+        }
+
+        return base
     }
 }
